@@ -7,7 +7,7 @@ tokens = (
     'LPAREN','RPAREN',
     )
 
-# Tokens
+# Basic Tokens
 
 t_PLUS    = r'\+'
 t_MINUS   = r'-'
@@ -16,7 +16,16 @@ t_DIVIDE  = r'/'
 t_EQUALS  = r'='
 t_LPAREN  = r'\('
 t_RPAREN  = r'\)'
-t_NAME    = r'[a-zA-Z_][a-zA-Z0-9_]*'
+t_NAME = r'[a-zA-Z_]\w*'
+
+# Custom K# Tokens
+
+t_AGENCY = r'^agency\b\s\b\w+\b\w*{'
+t_HIATUS = r'hiatus.*' # need to think about delimited comments - how will we delimited these? like /* only the stuff inside is a comment */ for a delimited comment in many languages
+t_ULTBIAS = r'^ult bias\s{1}\w+\s{1}\w+\s{1}=\s{1}.+\s{1}saranghae$'  # right now the first `\w+` is being used to represent the type of the var - we need to check to make sure it's a valid type
+t_IDOL = r'^idol\s{1}\w+\s{1}\w+\s{1}(=\s{1}.+\s{1})?saranghae$' # right now the first `\w+` is being used to represent the type of the var - we need to check to make sure it's a valid type
+t_TYPE = r'(fanmail|gender|ranking)'  # prototype for type, not final at all
+t_NEWINSTANCE = r'^ult bias\s{1}(?P<class_name>(classname1|classname2|classname3))\s{1}\w+\s{1}=\s{1}startup\s{1}(?P=class_name)\s{1}.+\s{1}saranghae$' # classnameN list needed as a var
 
 def t_NUMBER(t):
     r'\d+'
